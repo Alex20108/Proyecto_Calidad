@@ -1,75 +1,89 @@
 @extends('layouts.app')
 
 @section('template_title')
-    Categoria
+    Categorías
 @endsection
 
 @section('content')
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="card">
-                    <div class="card-header">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
 
-                            <span id="card_title">
-                                {{ __('Categoria') }}
-                            </span>
+<!-- Table Start -->
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-12">
+            <div class="bg-secondary rounded h-100 p-4">
 
-                             <div class="float-right">
-                                <a href="{{ route('categoria.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Create New') }}
-                                </a>
-                              </div>
-                        </div>
-                    </div>
-                    @if ($message = Session::get('success'))
-                        <div class="alert alert-success m-4">
-                            <p>{{ $message }}</p>
-                        </div>
-                    @endif
+                <h6 class="mb-4">Tabla de Categorías</h6>
 
-                    <div class="card-body bg-white">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-hover">
-                                <thead class="thead">
-                                    <tr>
-                                        <th>No</th>
-                                        
-									<th >Id</th>
-									<th >Nombre</th>
-									<th >Estado</th>
-
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($categoria as $categorium)
-                                        <tr>
-                                            <td>{{ ++$i }}</td>
-                                            
-										<td >{{ $categorium->ID }}</td>
-										<td >{{ $categorium->Nombre }}</td>
-										<td >{{ $categorium->Estado }}</td>
-
-                                            <td>
-                                                <form action="{{ route('categoria.destroy', $categorium->ID) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('categoria.show', $categorium->ID) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('categoria.edit', $categorium->ID) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="event.preventDefault(); confirm('Are you sure to delete?') ? this.closest('form').submit() : false;"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                {{-- Botón superior --}}
+                <div class="m-n2 mb-3">
+                    <a href="{{ route('categoria.create') }}" class="btn btn-outline-success m-2">
+                        Registrar Categoría
+                    </a>
                 </div>
-                {!! $categoria->withQueryString()->links() !!}
+
+                {{-- Mensaje de éxito --}}
+                @if ($message = Session::get('success'))
+                    <div class="alert alert-success">
+                        <p>{{ $message }}</p>
+                    </div>
+                @endif
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach ($categoria as $categorium)
+                                <tr>
+                                    <td>{{ $categorium->ID }}</td>
+                                    <td>{{ $categorium->Nombre }}</td>
+                                    <td>
+                                        <div class="m-n2 d-flex flex-wrap">
+
+                                            {{-- Editar --}}
+                                            <a href="{{ route('categoria.edit', $categorium->ID) }}"
+                                               class="btn btn-outline-warning m-2">
+                                                Editar
+                                            </a>
+
+                                            {{-- Eliminar / Desactivar --}}
+                                            <form action="{{ route('categoria.destroy', $categorium->ID) }}"
+                                                  method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit"
+                                                    onclick="return confirm('¿Seguro que deseas eliminar esta categoría?')"
+                                                    class="btn btn-outline-danger m-2">
+                                                    Eliminar
+                                                </button>
+                                            </form>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+
+                    </table>
+
+                    {{-- PAGINACIÓN --}}
+                    <div class="mt-3">
+                        {!! $categoria->withQueryString()->links() !!}
+                    </div>
+
+                </div>
+
             </div>
         </div>
     </div>
+</div>
+<!-- Table End -->
+
 @endsection
+

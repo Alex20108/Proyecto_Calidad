@@ -21,13 +21,21 @@ class Categorium extends Model
 {
     
     protected $perPage = 20;
+    protected $table = 'categoria';
+    protected $primaryKey = 'ID';
+    public $incrementing = true;
+    protected $keyType = 'int';
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
-    protected $fillable = ['ID', 'Nombre', 'Estado'];
+    protected $fillable = [ 'Nombre',];
+    protected $guarded = ['ID'];
+    protected $casts = [
+    'Estado' => 'boolean',
+    ];
 
 
     /**
@@ -35,7 +43,8 @@ class Categorium extends Model
      */
     public function productos()
     {
-        return $this->hasMany(\App\Models\Producto::class, 'ID', 'ID_Categoria');
+        return $this->hasMany(Producto::class, 'ID_Categoria', 'ID');
     }
+    
     
 }

@@ -5,15 +5,11 @@
 @endsection
 
 @section('content')
-    <section class="content container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-
-                <div class="card card-default">
-                    <div class="card-header">
-                        <span class="card-title">{{ __('Create') }} Categorium</span>
-                    </div>
-                    <div class="card-body bg-white">
+    <div class="container-fluid pt-4 px-4">
+                        <div class="row g-4">
+                            <div class="col-12">
+                                <div class="bg-secondary rounded h-100 p-4">
+                                    <h6 class="mb-4">Registrar Categoria</h6>
                         <form method="POST" action="{{ route('categoria.store') }}"  role="form" enctype="multipart/form-data">
                             @csrf
 
@@ -24,5 +20,5 @@
                 </div>
             </div>
         </div>
-    </section>
+
 @endsection

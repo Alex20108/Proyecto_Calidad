@@ -26,12 +26,20 @@ class Producto extends Model
     
     protected $perPage = 20;
     protected $table = 'producto';
+    protected $primaryKey = 'ID';
+    public $incrementing = true;
+    protected $keyType = 'int';
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
-    protected $fillable = ['ID', 'Nombre', 'Precio', 'Material', 'Descripcion', 'ID_Categoria', 'Estado'];
+    protected $fillable = [ 'Nombre', 'Precio', 'Material', 'Descripcion', 'ID_Categoria'];
+    protected $guarded = ['ID'];
+    protected $casts = [
+    'Estado' => 'boolean',
+    ];
+
 
 
     /**

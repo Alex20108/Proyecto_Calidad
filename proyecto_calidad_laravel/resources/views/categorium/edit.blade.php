@@ -5,25 +5,20 @@
 @endsection
 
 @section('content')
-    <section class="content container-fluid">
-        <div class="">
-            <div class="col-md-12">
+    <div class="container-fluid pt-4 px-4">
+                        <div class="row g-4">
+                            <div class="col-12">
+                                <div class="bg-secondary rounded h-100 p-4">
+                                    <h6 class="mb-4">Actualizar Categoria</h6>
+                                    <form method="POST" action="{{ route('categoria.update', $categorium->ID) }}"  role="form" enctype="multipart/form-data">
+                                        {{ method_field('PATCH') }}
+                                        @csrf
 
-                <div class="card card-default">
-                    <div class="card-header">
-                        <span class="card-title">{{ __('Update') }} Categorium</span>
+                                        @include('categorium.form')
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-body bg-white">
-                        <form method="POST" action="{{ route('categoria.update', $categorium->id) }}"  role="form" enctype="multipart/form-data">
-                            {{ method_field('PATCH') }}
-                            @csrf
-
-                            @include('categorium.form')
-
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 @endsection

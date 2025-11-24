@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ProductoRequest;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use App\Models\Categorium;
 
 class ProductoController extends Controller
 {
@@ -15,9 +16,9 @@ class ProductoController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request): View
-    {
+    {       
         $productos = Producto::paginate();
-
+        $productos = Producto::where('Estado', 1)->paginate();
         return view('producto.index', compact('productos'))
             ->with('i', ($request->input('page', 1) - 1) * $productos->perPage());
     }
@@ -28,8 +29,8 @@ class ProductoController extends Controller
     public function create(): View
     {
         $producto = new Producto();
-
-        return view('producto.create', compact('producto'));
+        $categorias = Categorium::where('Estado', 1)->get();
+        return view('producto.create', compact('producto', 'categorias'));
     }
 
     /**
@@ -38,7 +39,7 @@ class ProductoController extends Controller
     public function store(ProductoRequest $request): RedirectResponse
     {
         Producto::create($request->validated());
-
+        
         return Redirect::route('productos.index')
             ->with('success', 'Producto created successfully.');
     }
@@ -48,8 +49,9 @@ class ProductoController extends Controller
      */
     public function show($id): View
     {
+        
         $producto = Producto::find($id);
-
+        $producto = Producto::where('Estado', 1)->findOrFail($id);
         return view('producto.show', compact('producto'));
     }
 
@@ -58,9 +60,12 @@ class ProductoController extends Controller
      */
     public function edit($id): View
     {
+        $producto = Producto::where('Estado', 1)->findOrFail($id);
+        $categorias = Categorium::where('Estado', 1)->get();
         $producto = Producto::find($id);
 
-        return view('producto.edit', compact('producto'));
+        
+        return view('producto.edit', compact('producto', 'categorias'));
     }
 
     /**
@@ -76,9 +81,15 @@ class ProductoController extends Controller
 
     public function destroy($id): RedirectResponse
     {
-        Producto::find($id)->delete();
+        
+        $producto = Producto::findOrFail($id);
 
-        return Redirect::route('productos.index')
-            ->with('success', 'Producto deleted successfully');
+        // Eliminación lógica (no borra, desactiva)
+        $producto->Estado = 0;
+        $producto->save();
+
+        return redirect()->route('productos.index')
+            ->with('success', 'Producto desactivado correctamente.');
     }
+
 }

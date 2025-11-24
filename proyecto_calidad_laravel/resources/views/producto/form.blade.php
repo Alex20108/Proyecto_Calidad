@@ -1,11 +1,8 @@
+
+
 <div class="row padding-1 p-1">
     <div class="col-md-12">
         
-        <div class="form-group mb-2 mb20">
-            <label for="i_d" class="form-label">{{ __('Id') }}</label>
-            <input type="text" name="ID" class="form-control @error('ID') is-invalid @enderror" value="{{ old('ID', $producto?->ID) }}" id="i_d" placeholder="Id">
-            {!! $errors->first('ID', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-        </div>
         <div class="form-group mb-2 mb20">
             <label for="nombre" class="form-label">{{ __('Nombre') }}</label>
             <input type="text" name="Nombre" class="form-control @error('Nombre') is-invalid @enderror" value="{{ old('Nombre', $producto?->Nombre) }}" id="nombre" placeholder="Nombre">
@@ -26,19 +23,42 @@
             <input type="text" name="Descripcion" class="form-control @error('Descripcion') is-invalid @enderror" value="{{ old('Descripcion', $producto?->Descripcion) }}" id="descripcion" placeholder="Descripcion">
             {!! $errors->first('Descripcion', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
-        <div class="form-group mb-2 mb20">
-            <label for="i_d__categoria" class="form-label">{{ __('Id Categoria') }}</label>
-            <input type="text" name="ID_Categoria" class="form-control @error('ID_Categoria') is-invalid @enderror" value="{{ old('ID_Categoria', $producto?->ID_Categoria) }}" id="i_d__categoria" placeholder="Id Categoria">
-            {!! $errors->first('ID_Categoria', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+<div class="form-floating mb-3">
+    <select name="ID_Categoria" 
+            class="form-select @error('ID_Categoria') is-invalid @enderror"
+            id="floatingCategoria"
+            aria-label="Floating label select example">
+
+        <option value="" disabled 
+            {{ (!isset($producto) || !$producto->categorium || $producto->categorium->Estado == 0) ? 'selected' : '' }}>
+            Sin categoría
+        </option>
+
+        @foreach($categorias as $cat)
+            <option value="{{ $cat->ID }}"
+                @if(isset($producto) && $producto->ID_Categoria == $cat->ID && $producto->categorium->Estado == 1)
+                    selected
+                @endif
+            >
+                {{ $cat->Nombre }}
+            </option>
+        @endforeach
+    </select>
+
+    <label for="floatingCategoria">Categoría</label>
+
+    @error('ID_Categoria')
+        <div class="invalid-feedback">
+            {{ $message }}
         </div>
-        <div class="form-group mb-2 mb20">
-            <label for="estado" class="form-label">{{ __('Estado') }}</label>
-            <input type="text" name="Estado" class="form-control @error('Estado') is-invalid @enderror" value="{{ old('Estado', $producto?->Estado) }}" id="estado" placeholder="Estado">
-            {!! $errors->first('Estado', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
-        </div>
+    @enderror
+</div>
+
+
+
 
     </div>
     <div class="col-md-12 mt20 mt-2">
-        <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
+        <button type="submit" class="btn btn-primary">{{ __('Guardar') }}</button>
     </div>
 </div>

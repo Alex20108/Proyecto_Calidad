@@ -22,9 +22,8 @@ class CategoriumRequest extends FormRequest
     public function rules(): array
     {
         return [
-			'ID' => 'required',
+			
 			'Nombre' => 'required|string',
-			'Estado' => 'required',
         ];
     }
 }

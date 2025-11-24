@@ -32,7 +32,7 @@ return new class extends Migration
                     ->onDelete('cascade');
 
             // Estado
-            $table->boolean('Estado')->default(true);
+            $table->boolean('Estado')->default(1);
 
             // timestamps
             $table->timestamps();

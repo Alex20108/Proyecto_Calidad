@@ -17,7 +17,7 @@ class CategoriumController extends Controller
     public function index(Request $request): View
     {
         $categoria = Categorium::paginate();
-
+        $categoria = Categorium::where('Estado', 1)->paginate();
         return view('categorium.index', compact('categoria'))
             ->with('i', ($request->input('page', 1) - 1) * $categoria->perPage());
     }
@@ -38,7 +38,7 @@ class CategoriumController extends Controller
     public function store(CategoriumRequest $request): RedirectResponse
     {
         Categorium::create($request->validated());
-
+        
         return Redirect::route('categoria.index')
             ->with('success', 'Categorium created successfully.');
     }
@@ -49,7 +49,7 @@ class CategoriumController extends Controller
     public function show($id): View
     {
         $categorium = Categorium::find($id);
-
+        $categorium = Categorium::where('Estado', 1)->findOrFail($id);
         return view('categorium.show', compact('categorium'));
     }
 
@@ -58,8 +58,9 @@ class CategoriumController extends Controller
      */
     public function edit($id): View
     {
-        $categorium = Categorium::find($id);
 
+        $categorium = Categorium::find($id);
+        $categorium = Categorium::where('Estado', 1)->findOrFail($id);
         return view('categorium.edit', compact('categorium'));
     }
 
@@ -76,7 +77,9 @@ class CategoriumController extends Controller
 
     public function destroy($id): RedirectResponse
     {
-        Categorium::find($id)->delete();
+        $categorium = Categorium::find($id);
+        $categorium->Estado = 0;
+        $categorium->save();
 
         return Redirect::route('categoria.index')
             ->with('success', 'Categorium deleted successfully');

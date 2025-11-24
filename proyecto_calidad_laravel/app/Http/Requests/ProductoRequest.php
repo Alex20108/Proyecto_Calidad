@@ -22,13 +22,11 @@ class ProductoRequest extends FormRequest
     public function rules(): array
     {
         return [
-			'ID' => 'required',
 			'Nombre' => 'required|string',
 			'Precio' => 'required',
 			'Material' => 'required|string',
 			'Descripcion' => 'string',
-			'ID_Categoria' => 'required',
-			'Estado' => 'required',
+			'ID_Categoria' => 'required'
         ];
     }
 }
