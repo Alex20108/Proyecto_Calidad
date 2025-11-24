@@ -45,27 +45,25 @@ Proyecto_Calidad/
    ```bash
    git clone <URL-del-repositorio>
 2. Ubicacio del proyecto
-
-cd proyecto_calidad_laravel
+   ```bash
+   cd proyecto_calidad_laravel
 
 3. Instalar dependencias:
-
-composer install
+   ```bash
+   composer install
 
 4. Configurar archivo .env con conexión a base de datos.
-
 5. Ejecutar migraciones:
-
-php artisan migrate --seed
+   ```bash  
+   php artisan migrate --seed
 
 6. Ejecutar servidor local:
-
-php artisan serve
-
+   ```bash
+   php artisan serve
 
 7. Abrir en el navegador:
-
-http://127.0.0.1:8000
+   ```bash
+   http://127.0.0.1:8000
 
 ## Conclusión
 
