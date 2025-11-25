@@ -8,10 +8,25 @@
             <input type="text" name="Nombre" class="form-control @error('Nombre') is-invalid @enderror" value="{{ old('Nombre', $producto?->Nombre) }}" id="nombre" placeholder="Nombre">
             {!! $errors->first('Nombre', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
-        <div class="form-group mb-2 mb20">
-            <label for="precio" class="form-label">{{ __('Precio') }}</label>
-            <input type="text" name="Precio" class="form-control @error('Precio') is-invalid @enderror" value="{{ old('Precio', $producto?->Precio) }}" id="precio" placeholder="Precio">
-            {!! $errors->first('Precio', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+        <label for="precio" class="form-label">{{ __('Precio') }}</label>
+        <div class="form-floating mb-3">
+            <div class="input-group">
+                <span class="input-group-text">$</span>
+                <input 
+                    type="text" 
+                    name="Precio" 
+                    class="form-control @error('Precio') is-invalid @enderror" 
+                    value="{{ old('Precio', $producto?->Precio) }}" 
+                    id="precio" 
+                    placeholder="Precio"
+                >
+                <span class="input-group-text">.00</span>
+                @error('Precio')
+                    <div class="invalid-feedback">
+                        <strong>{{ $message }}</strong>
+                    </div>
+                @enderror
+            </div>
         </div>
         <div class="form-group mb-2 mb20">
             <label for="material" class="form-label">{{ __('Material') }}</label>
@@ -23,6 +38,7 @@
             <input type="text" name="Descripcion" class="form-control @error('Descripcion') is-invalid @enderror" value="{{ old('Descripcion', $producto?->Descripcion) }}" id="descripcion" placeholder="Descripcion">
             {!! $errors->first('Descripcion', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
+        <label for="floatingCategoria">Categoría</label>
 <div class="form-floating mb-3">
     <select name="ID_Categoria" 
             class="form-select @error('ID_Categoria') is-invalid @enderror"

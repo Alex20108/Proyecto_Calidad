@@ -30,13 +30,12 @@
             
 
                 <!-- Botón -->
-                 <center>
-                    <div class="d-grid">
+                    <div class="d-grid" style="text-align: center;">
                         <a href="productos">
                         <button type="button" class="btn btn-primary">Iniciar Sesión</button>
                         </a>
                     </div>
-                </center>
+                
             </form>
 
             <div class="text-center mt-3">
