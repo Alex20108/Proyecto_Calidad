@@ -18,13 +18,13 @@
                 <!-- Email -->
                 <div class="mb-3">
                     <label for="email" class="form-label">Correo electrónico</label>
-                    <input type="email" class="form-control" id="email" placeholder="nombre@ejemplo.com">
+                    <input type="email" class="form-control" id="email" placeholder="nombre@ejemplo.com" required>
                 </div>
 
                 <!-- Contraseña -->
                 <div class="mb-3">
                     <label for="password" class="form-label">Contraseña</label>
-                    <input type="password" class="form-control" id="password" placeholder="********">
+                    <input type="password" class="form-control" id="password" placeholder="********" required>
                 </div>
 
             
